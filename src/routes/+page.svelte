@@ -6,7 +6,7 @@
 	let { data } = $props();
 
 	// Wrap the array in $state so the totals below can react to it.
-	let transactions = $state(data.transactions);
+	let transactions = $state(data.transactions ?? []);
 
 	// Add this INSIDE the <script> block, below the transactions array.
 	function classify(t) {
@@ -48,15 +48,16 @@
 	<section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
 		<h2 class="mb-4 text-xl font-bold text-slate-800">New Transaction</h2>
 
-		<form class="grid grid-cols-1 gap-4 md:grid-cols-2">
+		<form method="POST" class="grid grid-cols-1 gap-4 md:grid-cols-2">
 			<div>
 				<label class="mb-1 block text-sm font-medium text-slate-700">Date</label>
-				<input type="date" class="w-full rounded border border-slate-300 px-3 py-2" />
+				<input name="date" type="date" class="w-full rounded border border-slate-300 px-3 py-2" />
 			</div>
 
 			<div>
 				<label class="mb-1 block text-sm font-medium text-slate-700">Amount</label>
 				<input
+					name="amount"
 					type="number"
 					step="0.01"
 					placeholder="0.00"
@@ -67,6 +68,7 @@
 			<div class="md:col-span-2">
 				<label class="mb-1 block text-sm font-medium text-slate-700">Description</label>
 				<input
+					name="description"
 					type="text"
 					placeholder="e.g. Office rent for July"
 					class="w-full rounded border border-slate-300 px-3 py-2"
@@ -75,7 +77,7 @@
 
 			<div>
 				<label class="mb-1 block text-sm font-medium text-slate-700">Debit Account</label>
-				<select class="w-full rounded border border-slate-300 px-3 py-2">
+				<select name="debit" class="w-full rounded border border-slate-300 px-3 py-2">
 					<option value="">-- Select --</option>
 					<option>Cash</option>
 					<option>Accounts Receivable</option>
@@ -88,7 +90,7 @@
 
 			<div>
 				<label class="mb-1 block text-sm font-medium text-slate-700">Credit Account</label>
-				<select class="w-full rounded border border-slate-300 px-3 py-2">
+				<select name="credit" class="w-full rounded border border-slate-300 px-3 py-2">
 					<option value="">-- Select --</option>
 					<option>Cash</option>
 					<option>Accounts Receivable</option>
